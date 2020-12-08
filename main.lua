@@ -14,17 +14,16 @@ function love.gamepadpressed(joystick, button)
 
 	else
 	-- not hotkey events
-  	if button == 'leftshoulder' then
-p = music.getPitch()
+	  if button == 'leftshoulder' then
+		local p = music:getPitch() - 0.1
 
-music.setPitch(p - 0.1)
-	
-		end
+		music:setPitch(p > 0.1 and p or 0.1)	
+	end
 
 		if button == 'rightshoulder' then
-p = music.getPitch()
+			local p = music:getPitch() + 0.1
 
-music.setPitch(p + 0.1)
+			music:setPitch(p)
 		end
 	end
 
@@ -47,6 +46,9 @@ function love.draw()
 end
 
 function love.load()
-	music = love.audio.newSource('sounds/overworld.ogg')
+	music = love.audio.newSource('sounds/heru-mario-music-2.ogg', "stream")
 
+	music:setLooping(true)
+
+	love.audio.play(music)
 end
